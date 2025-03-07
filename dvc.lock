@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  data_integration:
+    cmd: python pipeline/data_integration.py
+    deps:
+    - path: dataset/titanic_toy.csv
+      hash: md5
+      md5: 1b7f701c338a4f4988464c5faee84d6a
+      size: 13397
+    - path: pipeline/data_integration.py
+      hash: md5
+      md5: 3092f3c72712669fed777a602d68f00a
+      size: 2348
+    outs:
+    - path: df.csv
+      hash: md5
+      md5: 1b7f701c338a4f4988464c5faee84d6a
+      size: 13397

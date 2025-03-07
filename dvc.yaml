@@ -3,9 +3,6 @@ stages:
     cmd: "python pipeline/data_integration.py"
     deps:
       - pipeline/data_integration.py
+      - dataset/titanic_toy.csv
     outs:
-      - df
-params:
-- dvclive/params.yaml
-metrics:
-- dvclive/metrics.json
+      - df.csv 
