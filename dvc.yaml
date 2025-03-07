@@ -1,0 +1,11 @@
+stages:
+  data_integration:
+    cmd: "python pipeline/data_integration.py"
+    deps:
+      - pipeline/data_integration.py
+    outs:
+      - df
+params:
+- dvclive/params.yaml
+metrics:
+- dvclive/metrics.json

@@ -1,0 +1,3 @@
+2025-03-04 15:25:10,561 - data_integration - DEBUG - Data loaded from C:\Users\alisa\OneDrive\Desktop\End-to-End ML Pipeline using DVC & AWS S3\dataset\titanic_toy.csv
+2025-03-04 15:25:39,163 - data_integration - DEBUG - Data loaded from dataset\titanic_toy.csv
+2025-03-07 10:40:57,461 - data_integration - DEBUG - Data loaded from dataset\titanic_toy.csv
