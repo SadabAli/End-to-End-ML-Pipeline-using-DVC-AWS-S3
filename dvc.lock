@@ -16,3 +16,31 @@ stages:
       hash: md5
       md5: 1b7f701c338a4f4988464c5faee84d6a
       size: 13397
+  data_processing:
+    cmd: python pipeline/data_processing.py
+    deps:
+    - path: dataset/titanic_toy.csv
+      hash: md5
+      md5: 1b7f701c338a4f4988464c5faee84d6a
+      size: 13397
+    - path: pipeline/data_processing.py
+      hash: md5
+      md5: 74aa54e5d5546adb79b34e48af418e87
+      size: 3245
+    outs:
+    - path: processed_data/X_test.csv
+      hash: md5
+      md5: feffb9a9db6d7ed35f0e239d277973fe
+      size: 2364
+    - path: processed_data/X_train.csv
+      hash: md5
+      md5: 7d6ef010dbbc104a21edb0f18df9961f
+      size: 9259
+    - path: processed_data/y_test.csv
+      hash: md5
+      md5: 48e5bdf5b57544b1854551042c077f33
+      size: 547
+    - path: processed_data/y_train.csv
+      hash: md5
+      md5: 9f0572ceb4b0bb20f65c8e10fc271022
+      size: 2146

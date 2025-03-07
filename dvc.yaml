@@ -6,3 +6,16 @@ stages:
       - dataset/titanic_toy.csv
     outs:
       - df.csv 
+
+
+  data_processing:
+    cmd: python pipeline/data_processing.py
+    deps:
+      - pipeline/data_processing.py
+      - dataset/titanic_toy.csv
+    outs:
+      - processed_data/X_train.csv
+      - processed_data/X_test.csv
+      - processed_data/y_train.csv
+      - processed_data/y_test.csv
+

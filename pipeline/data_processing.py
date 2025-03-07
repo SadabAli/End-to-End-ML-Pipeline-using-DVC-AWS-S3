@@ -1,17 +1,21 @@
-import pandas as pd 
-import logging 
-import yaml 
-import os 
-from sklearn.model_selection import train_test_split 
+import pandas as pd
+import logging
+import yaml
+import os
+from sklearn.model_selection import train_test_split
 from typing import Union, Tuple
 
 # Create logs directory
 log_dir = 'logs'
-os.makedirs(log_dir, exist_ok=True) 
+os.makedirs(log_dir, exist_ok=True)
+
+# Create data directory
+output_dir = "processed_data"
+os.makedirs(output_dir, exist_ok=True)
 
 # Logging Configuration
 logger = logging.getLogger('data_processing')
-logger.setLevel(logging.DEBUG)  
+logger.setLevel(logging.DEBUG)
 
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
@@ -25,7 +29,8 @@ console_handler.setFormatter(formatter)
 file_handler.setFormatter(formatter)
 
 logger.addHandler(console_handler)
-logger.addHandler(file_handler) 
+logger.addHandler(file_handler)
+
 
 def load_params(params_path: str) -> dict:
     """
@@ -41,10 +46,9 @@ def load_params(params_path: str) -> dict:
         raise
 
 
-
 def split(data_path: Union[str, pd.DataFrame]) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """
-    Splits the dataset into training and testing sets.
+    Splits the dataset into training and testing sets and saves them as CSV.
     
     Args:
         data_path (str or pd.DataFrame): Path to CSV file or DataFrame.
@@ -68,20 +72,28 @@ def split(data_path: Union[str, pd.DataFrame]) -> Tuple[pd.DataFrame, pd.DataFra
         # Train-test split
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        logger.debug("Data successfully split into train and test sets.")
+        # Save the split data
+        X_train.to_csv(os.path.join(output_dir, "X_train.csv"), index=False)
+        X_test.to_csv(os.path.join(output_dir, "X_test.csv"), index=False)
+        y_train.to_csv(os.path.join(output_dir, "y_train.csv"), index=False)
+        y_test.to_csv(os.path.join(output_dir, "y_test.csv"), index=False)
+
+        logger.debug("Data successfully split and saved into train-test sets.")
         return X_train, X_test, y_train, y_test
 
     except Exception as e:
-        logger.error("Error while splitting data", exc_info=True)
+        logger.error("Error while splitting and saving data", exc_info=True)
         raise
+
 
 def main():
     try:
-        data_path = r"dataset\titanic_toy.csv" 
+        data_path = r"dataset/titanic_toy.csv"
         X_train, X_test, y_train, y_test = split(data_path)
-        logger.info("Data split successfully.")
+        logger.info("Data split and saved successfully.")
     except Exception as e:
-        logger.error("Failed to load and split the dataset", exc_info=True)
+        logger.error("Failed to load, split, and save the dataset", exc_info=True)
+
 
 if __name__ == "__main__":
     main()
