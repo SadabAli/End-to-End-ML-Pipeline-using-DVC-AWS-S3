@@ -14,3 +14,8 @@
 2025-03-07 11:49:39,914 - model_building - INFO - Model training completed successfully.
 2025-03-07 11:49:39,916 - model_building - INFO - Model Accuracy: 0.6369
 2025-03-07 11:49:39,919 - model_building - INFO - Model saved successfully at models\model.pkl
+2025-03-07 11:55:41,703 - model_building - DEBUG - Loaded parameters from params.yaml
+2025-03-07 11:55:41,707 - model_building - DEBUG - Successfully loaded training and testing data
+2025-03-07 11:55:41,711 - model_building - INFO - Model training completed successfully.
+2025-03-07 11:55:41,713 - model_building - INFO - Model Accuracy: 0.6592
+2025-03-07 11:55:41,715 - model_building - INFO - Model saved successfully at models\model.pkl

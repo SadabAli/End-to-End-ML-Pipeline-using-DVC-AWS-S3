@@ -28,3 +28,18 @@ Classification Report:
 weighted avg       0.63      0.64      0.63       179
 
 2025-03-07 11:49:41,767 - model_evaluation - INFO - Evaluation results saved successfully at evaluation_results\evaluation.txt
+2025-03-07 11:55:43,317 - model_evaluation - INFO - Successfully loaded test data.
+2025-03-07 11:55:43,415 - model_evaluation - INFO - Successfully loaded the trained model.
+2025-03-07 11:55:43,447 - model_evaluation - INFO - Model Accuracy: 0.6592
+2025-03-07 11:55:43,448 - model_evaluation - INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.69      0.75      0.72       105
+           1       0.60      0.53      0.56        74
+
+    accuracy                           0.66       179
+   macro avg       0.65      0.64      0.64       179
+weighted avg       0.65      0.66      0.66       179
+
+2025-03-07 11:55:43,448 - model_evaluation - INFO - Evaluation results saved successfully at evaluation_results\evaluation.txt
