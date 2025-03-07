@@ -38,6 +38,50 @@ The ML pipeline consists of four main stages:
 5. **Model Visualization (`model_visualization.py`)**  
    - Generates a decision tree plot (`decision_tree.png`).  
 
----
+## 🔧 Setup & Installation
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/End-to-End-ML-Pipeline-using-DVC-AWS-S3.git
+   cd End-to-End-ML-Pipeline-using-DVC-AWS-S3
+   ```
+2. **Create a virtual environment & Install dependencies:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # (For Windows: venv\Scripts\activate)
+   pip install -r requirements.txt
+   ```
+3. **Setup DVC & Initialize:**
+   ```bash
+   dvc init
+   dvc remote add s3remote s3://your-bucket-name/path/
+   ```
+4. **Add & Push Data to S3 using DVC:**
+   ```bash
+   dvc add data/
+   dvc push
+   ```
+5. **Run the ML Pipeline:**
+   ```bash
+   dvc repro
+   ```
 
-## 📂 Folder Structure
+## 📸 Screenshots
+### 🔹 IAM User Permissions
+![Screenshot 2025-03-07 121549](https://github.com/user-attachments/assets/b4ddec1f-e96a-40e4-bd15-89d9b73f259b)
+
+
+### 🔹 AWS S3 Bucket
+![Screenshot 2025-03-07 121707](https://github.com/user-attachments/assets/03cc4453-e767-4534-8b24-8f9761028276)
+
+## 📌 Results
+- Achieved **X% accuracy** on the dataset
+- Data is versioned and stored efficiently using **DVC & AWS S3**
+- End-to-end automation of ML workflow
+
+## 📜 License
+This project is open-source and available under the **MIT License**.
+
+## 🙌 Acknowledgments
+Special thanks to the **Open-Source Community** for providing valuable resources on **MLOps & DVC**.
+
+
