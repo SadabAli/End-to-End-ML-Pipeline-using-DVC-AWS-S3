@@ -44,3 +44,19 @@ stages:
       hash: md5
       md5: 9f0572ceb4b0bb20f65c8e10fc271022
       size: 2146
+  model_building:
+    cmd: python pipeline/model_building.py
+    deps:
+    - path: processed_data/X_train.csv
+      hash: md5
+      md5: 7d6ef010dbbc104a21edb0f18df9961f
+      size: 9259
+    - path: processed_data/y_train.csv
+      hash: md5
+      md5: 9f0572ceb4b0bb20f65c8e10fc271022
+      size: 2146
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: e166a555cf68d56dc5a069595faba4b7
+      size: 16889
