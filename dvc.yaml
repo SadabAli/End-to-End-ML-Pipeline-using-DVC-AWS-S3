@@ -7,11 +7,9 @@ stages:
     outs:
       - df.csv 
 
-
   data_processing:
     cmd: python pipeline/data_processing.py
     deps:
-      - pipeline/data_processing.py
       - dataset/titanic_toy.csv
     outs:
       - processed_data/X_train.csv
@@ -19,3 +17,31 @@ stages:
       - processed_data/y_train.csv
       - processed_data/y_test.csv
 
+  model_building:
+    cmd: python pipeline/model_building.py
+    deps:
+      - processed_data/X_train.csv
+      - processed_data/y_train.csv
+      - params.yaml
+    outs:
+      - models/model.pkl
+
+  model_evaluation:
+    cmd: python pipeline/model_evaluation.py
+    deps:
+      - models/model.pkl
+      - processed_data/X_test.csv
+      - processed_data/y_test.csv
+    outs:
+      - evaluation_results/evaluation.txt
+  model_visualization:
+    cmd: python pipeline/model_visualization.py
+    deps:
+      - models/model.pkl
+      - processed_data/X_test.csv
+      - processed_data/y_test.csv
+    outs:
+      - visualizations/decision_tree.png
+      - visualizations/feature_importance.png
+      - visualizations/confusion_matrix.png
+      - visualizations/roc_curve.png

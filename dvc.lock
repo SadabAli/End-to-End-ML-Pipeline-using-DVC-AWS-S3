@@ -47,6 +47,10 @@ stages:
   model_building:
     cmd: python pipeline/model_building.py
     deps:
+    - path: params.yaml
+      hash: md5
+      md5: 37bc328e9e865f8874ff29484f4bb380
+      size: 113
     - path: processed_data/X_train.csv
       hash: md5
       md5: 7d6ef010dbbc104a21edb0f18df9961f
@@ -58,15 +62,15 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: e166a555cf68d56dc5a069595faba4b7
-      size: 16889
+      md5: c8b7da8cc7700c589cd539050bce6014
+      size: 24249
   model_evaluation:
     cmd: python pipeline/model_evaluation.py
     deps:
     - path: models/model.pkl
       hash: md5
-      md5: e166a555cf68d56dc5a069595faba4b7
-      size: 16889
+      md5: c8b7da8cc7700c589cd539050bce6014
+      size: 24249
     - path: processed_data/X_test.csv
       hash: md5
       md5: feffb9a9db6d7ed35f0e239d277973fe
@@ -78,5 +82,37 @@ stages:
     outs:
     - path: evaluation_results/evaluation.txt
       hash: md5
-      md5: 07f9d2625c9a216c5156e1d36771610a
+      md5: a6dd11c77a11ab5fad003252415cb33c
       size: 378
+  model_visualization:
+    cmd: python pipeline/model_visualization.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: c8b7da8cc7700c589cd539050bce6014
+      size: 24249
+    - path: processed_data/X_test.csv
+      hash: md5
+      md5: feffb9a9db6d7ed35f0e239d277973fe
+      size: 2364
+    - path: processed_data/y_test.csv
+      hash: md5
+      md5: 48e5bdf5b57544b1854551042c077f33
+      size: 547
+    outs:
+    - path: visualizations/confusion_matrix.png
+      hash: md5
+      md5: a549989734f4e8bd34d67e71119084ff
+      size: 19431
+    - path: visualizations/decision_tree.png
+      hash: md5
+      md5: d6a06fd42bb253a496d916a81a73d32d
+      size: 772543
+    - path: visualizations/feature_importance.png
+      hash: md5
+      md5: a29d56361decd51050fa0d5356a9fb80
+      size: 10822
+    - path: visualizations/roc_curve.png
+      hash: md5
+      md5: c44a1e56668b29180f0560861762393f
+      size: 29569

@@ -1,0 +1,30 @@
+2025-03-07 11:44:43,610 - model_evaluation - INFO - Successfully loaded test data.
+2025-03-07 11:44:43,708 - model_evaluation - INFO - Successfully loaded the trained model.
+2025-03-07 11:44:43,749 - model_evaluation - INFO - Model Accuracy: 0.6536
+2025-03-07 11:44:43,749 - model_evaluation - INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.69      0.75      0.72       105
+           1       0.59      0.51      0.55        74
+
+    accuracy                           0.65       179
+   macro avg       0.64      0.63      0.63       179
+weighted avg       0.65      0.65      0.65       179
+
+2025-03-07 11:44:43,750 - model_evaluation - INFO - Evaluation results saved successfully at evaluation_results\evaluation.txt
+2025-03-07 11:49:41,635 - model_evaluation - INFO - Successfully loaded test data.
+2025-03-07 11:49:41,734 - model_evaluation - INFO - Successfully loaded the trained model.
+2025-03-07 11:49:41,766 - model_evaluation - INFO - Model Accuracy: 0.6369
+2025-03-07 11:49:41,767 - model_evaluation - INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.66      0.77      0.71       105
+           1       0.58      0.45      0.50        74
+
+    accuracy                           0.64       179
+   macro avg       0.62      0.61      0.61       179
+weighted avg       0.63      0.64      0.63       179
+
+2025-03-07 11:49:41,767 - model_evaluation - INFO - Evaluation results saved successfully at evaluation_results\evaluation.txt

@@ -1,0 +1,6 @@
+model:
+  criterion: "gini"
+  splitter: "best"
+  max_depth: 13
+  min_samples_split: 4
+  min_samples_leaf: 2

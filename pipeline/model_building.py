@@ -1,122 +1,118 @@
-import numpy as np 
-import pandas as pd 
-from sklearn.tree import DecisionTreeClassifier 
-import yaml 
-import os 
-from typing import Union,Tuple 
-from sklearn.metrics import accuracy_score,classification_report 
-import logging 
-import pickle
+import pandas as pd
+import logging
+import yaml
+import os
+import joblib
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
-log_dir = 'logs'
-os.makedirs(log_dir,exist_ok=True)
+# Create logs directory
+log_dir = "logs"
+os.makedirs(log_dir, exist_ok=True)
 
-# Logging configuration
-logger = logging.getLogger('model_building')
-logger.setLevel('DEBUG')
+# Create models directory
+model_dir = "models"
+os.makedirs(model_dir, exist_ok=True)
+
+# Logging Configuration
+logger = logging.getLogger("model_building")
+logger.setLevel(logging.DEBUG)
 
 console_handler = logging.StreamHandler()
-console_handler.setLevel('DEBUG')
+console_handler.setLevel(logging.DEBUG)
 
-log_file_path = os.path.join(log_dir, 'model_building.log')
+log_file_path = os.path.join(log_dir, "model_building.log")
 file_handler = logging.FileHandler(log_file_path)
-file_handler.setLevel('DEBUG')
+file_handler.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 console_handler.setFormatter(formatter)
 file_handler.setFormatter(formatter)
 
 logger.addHandler(console_handler)
-logger.addHandler(file_handler) 
+logger.addHandler(file_handler)
 
-def load_data(data_path: Union[str,pd.DataFrame]) -> pd.DataFrame:
-    """Load data from a CSV file or use an existing DataFrame."""
-    if isinstance(data_path, str):  # If data_path is a file path
-        try:
-            df = pd.read_csv(data_path)
-            logger.debug('Data loaded from %s', data_path)
-            return df
-        except pd.errors.ParserError as e:
-            logger.error('Failed to parse the CSV file: %s', e)
-            raise
-        except Exception as e:
-            logger.error('Unexpected error occurred while loading the data: %s', e)
-            raise
-    elif isinstance(data_path, pd.DataFrame):  # If data_path is already a DataFrame
-        logger.debug('Using provided DataFrame')
-        return data_path
-    else:
-        raise ValueError("data_path must be a file path (str) or a DataFrame")
-    
-def train_model(X_train: np.ndarray, y_train: np.ndarray, params: dict) -> DecisionTreeClassifier:
-    """
-    Train the RandomForest model.
-    
-    :param X_train: Training features
-    :param y_train: Training labels
-    :param params: Dictionary of hyperparameters
-    :return: Trained Decisiontree
-    """
+
+def load_params(params_path: str) -> dict:
+    """Load model parameters from YAML file."""
     try:
-        if X_train.shape[0] != y_train.shape[0]:
-            raise ValueError("The number of samples in X_train and y_train must be the same.")
-        
-        logger.debug('Initializing RandomForest model with parameters: %s', params)
-        clf = DecisionTreeClassifier()
-        
-        logger.debug('Model training started with %d samples', X_train.shape[0])
-        clf.fit(X_train, y_train)
-        logger.debug('Model training completed')
-        
-        return clf
-    except ValueError as e:
-        logger.error('ValueError during model training: %s', e)
-        raise
+        with open(params_path, "r") as file:
+            params = yaml.safe_load(file)
+        logger.debug("Loaded parameters from %s", params_path)
+        return params["model"]
     except Exception as e:
-        logger.error('Error during model training: %s', e)
+        logger.error("Failed to load parameters: %s", e, exc_info=True)
         raise
 
-def save_model(model, file_path: str) -> None:
-    """
-    Save the trained model to a file.
-    
-    :param model: Trained model object
-    :param file_path: Path to save the model file
-    """
+
+def load_data() -> tuple:
+    """Load processed training data."""
     try:
-        # Ensure the directory exists
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        
-        with open(file_path, 'wb') as file:
-            pickle.dump(model, file)
-        logger.debug('Model saved to %s', file_path)
+        X_train = pd.read_csv("processed_data/X_train.csv")
+        y_train = pd.read_csv("processed_data/y_train.csv")
+        X_test = pd.read_csv("processed_data/X_test.csv")
+        y_test = pd.read_csv("processed_data/y_test.csv")
+
+        logger.debug("Successfully loaded training and testing data")
+        return X_train, X_test, y_train, y_test
     except FileNotFoundError as e:
-        logger.error('File path not found: %s', e)
+        logger.error("Missing processed data files: %s", e, exc_info=True)
         raise
     except Exception as e:
-        logger.error('Error occurred while saving the model: %s', e)
+        logger.error("Error loading data: %s", e, exc_info=True)
         raise
+
+
+def train_model(X_train, y_train, params):
+    """Train a Decision Tree model."""
+    try:
+        model = DecisionTreeClassifier(
+            criterion=params["criterion"],
+            splitter=params["splitter"],
+            max_depth=params["max_depth"],
+            min_samples_split=params["min_samples_split"],
+            min_samples_leaf=params["min_samples_leaf"],
+        )
+        model.fit(X_train, y_train)
+        logger.info("Model training completed successfully.")
+        return model
+    except Exception as e:
+        logger.error("Model training failed: %s", e, exc_info=True)
+        raise
+
+
+def evaluate_model(model, X_test, y_test):
+    """Evaluate model accuracy."""
+    try:
+        y_pred = model.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred)
+        logger.info("Model Accuracy: %.4f", accuracy)
+    except Exception as e:
+        logger.error("Model evaluation failed: %s", e, exc_info=True)
+        raise
+
+
+def save_model(model):
+    """Save trained model as a pickle file."""
+    try:
+        model_path = os.path.join(model_dir, "model.pkl")
+        joblib.dump(model, model_path)
+        logger.info("Model saved successfully at %s", model_path)
+    except Exception as e:
+        logger.error("Failed to save model: %s", e, exc_info=True)
+        raise
+
 
 def main():
     try:
-        # Load parameters (use default if params.yaml is missing)
-        # params = load_params('params.yaml')
-        
-        # Load training data
-        train_data = load_data(r'C:\Users\alisa\OneDrive\Desktop\MLOPs Note\data\raw\train.csv')
-        X_train = train_data.iloc[:, :-1].values  # Features (all columns except the last)
-        y_train = train_data.iloc[:, -1].values   # Labels (last column)
-        
-        # Train the model
-        clf = train_model(X_train, y_train, params)
-        
-        # Save the trained model
-        model_save_path = os.path.join('models', 'model.pkl')
-        save_model(clf, model_save_path)
-
+        params = load_params("params.yaml")
+        X_train, X_test, y_train, y_test = load_data()
+        model = train_model(X_train, y_train, params)
+        evaluate_model(model, X_test, y_test)
+        save_model(model)
     except Exception as e:
-        logger.error('Failed to complete the model building process: %s', e)
-        print(f"Error: {e}")
+        logger.error("Model building process failed", exc_info=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

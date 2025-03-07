@@ -1,0 +1,16 @@
+2025-03-07 11:15:20,691 - model_building - ERROR - Unexpected error occurred while loading the data: [Errno 2] No such file or directory: 'C:\\Users\\alisa\\OneDrive\\Desktop\\MLOPs Note\\data\\raw\\train.csv'
+2025-03-07 11:15:20,691 - model_building - ERROR - Failed to complete the model building process: [Errno 2] No such file or directory: 'C:\\Users\\alisa\\OneDrive\\Desktop\\MLOPs Note\\data\\raw\\train.csv'
+2025-03-07 11:18:33,139 - model_building - ERROR - Unexpected error occurred while loading the data: [Errno 2] No such file or directory: 'C:\\Users\\alisa\\OneDrive\\Desktop\\MLOPs Note\\data\\raw\\train.csv'
+2025-03-07 11:18:33,140 - model_building - ERROR - Failed to complete the model building process: [Errno 2] No such file or directory: 'C:\\Users\\alisa\\OneDrive\\Desktop\\MLOPs Note\\data\\raw\\train.csv'
+2025-03-07 11:21:10,755 - model_building - ERROR - Unexpected error occurred while loading the data: [Errno 2] No such file or directory: 'C:\\Users\\alisa\\OneDrive\\Desktop\\MLOPs Note\\data\\raw\\train.csv'
+2025-03-07 11:21:10,755 - model_building - ERROR - Failed to complete the model building process: [Errno 2] No such file or directory: 'C:\\Users\\alisa\\OneDrive\\Desktop\\MLOPs Note\\data\\raw\\train.csv'
+2025-03-07 11:40:13,568 - model_building - DEBUG - Loaded parameters from params.yaml
+2025-03-07 11:40:13,599 - model_building - DEBUG - Successfully loaded training and testing data
+2025-03-07 11:40:13,610 - model_building - INFO - Model training completed successfully.
+2025-03-07 11:40:13,615 - model_building - INFO - Model Accuracy: 0.6536
+2025-03-07 11:40:13,618 - model_building - INFO - Model saved successfully at models\model.pkl
+2025-03-07 11:49:39,906 - model_building - DEBUG - Loaded parameters from params.yaml
+2025-03-07 11:49:39,906 - model_building - DEBUG - Successfully loaded training and testing data
+2025-03-07 11:49:39,914 - model_building - INFO - Model training completed successfully.
+2025-03-07 11:49:39,916 - model_building - INFO - Model Accuracy: 0.6369
+2025-03-07 11:49:39,919 - model_building - INFO - Model saved successfully at models\model.pkl
