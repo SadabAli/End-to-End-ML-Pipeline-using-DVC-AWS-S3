@@ -67,12 +67,12 @@ The ML pipeline consists of four main stages:
 
 ## 📸 Screenshots
 ### 🔹 IAM User Permissions
-![Screenshot 2025-03-07 121549](https://github.com/user-attachments/assets/b4ddec1f-e96a-40e4-bd15-89d9b73f259b)
 
-
-### 🔹 AWS S3 Bucket
 ![Screenshot 2025-03-07 121707](https://github.com/user-attachments/assets/03cc4453-e767-4534-8b24-8f9761028276)
 
+### 🔹 AWS S3 Bucket
+
+![Screenshot 2025-03-07 121549](https://github.com/user-attachments/assets/b4ddec1f-e96a-40e4-bd15-89d9b73f259b)
 ## 📌 Results
 - Achieved **X% accuracy** on the dataset
 - Data is versioned and stored efficiently using **DVC & AWS S3**
