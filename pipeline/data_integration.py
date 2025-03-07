@@ -64,7 +64,9 @@ def main():
     try:
         data_path = r"dataset\titanic_toy.csv"
         df = load_data(data_path)
-        print(df)
+        output_path = "df.csv"  # Ensure it matches the 'outs' in dvc.yaml
+        df.to_csv(output_path, index=False)
+        logger.debug("Saved processed data to %s", output_path)
     except Exception as e:
         logger.error('Failed to load the dataset: %s', e, exc_info=True)
         print(e)
