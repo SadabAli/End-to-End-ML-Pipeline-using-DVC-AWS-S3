@@ -74,7 +74,7 @@ The ML pipeline consists of four main stages:
 
 ![Screenshot 2025-03-07 121549](https://github.com/user-attachments/assets/b4ddec1f-e96a-40e4-bd15-89d9b73f259b)
 ## 📌 Results
-- Achieved **X% accuracy** on the dataset
+- Achieved **65% accuracy** on the dataset
 - Data is versioned and stored efficiently using **DVC & AWS S3**
 - End-to-end automation of ML workflow
 
